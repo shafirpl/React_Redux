@@ -3,9 +3,9 @@ import React from 'react';
 import './CounterControl.css';
 
 const counterControl = (props) => (
-    <div className="CounterControl" onClick={props.clicked}>
+    <button className = "btn btn-lg btn-primary" onClick={props.clicked}>
         {props.label}
-    </div>
+    </button>
 );
 
 export default counterControl;
