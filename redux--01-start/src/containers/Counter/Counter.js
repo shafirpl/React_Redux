@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './Counter.css';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-
+import * as actionTypes from '../../store/actions.jsx';
 class Counter extends Component {
     state = {
         counter: 0
@@ -46,7 +47,7 @@ class Counter extends Component {
             <hr />
             <button
               className="btn btn-success"
-              onClick={this.props.onStoreResult}
+              onClick={() => this.props.onStoreResult(this.props.ctr)}
             >
               Store Result
             </button>
@@ -86,8 +87,8 @@ class Counter extends Component {
 
 const mapStateToProps = state => {
     return {
-        ctr: state.counter,
-        storedResults: state.results
+        ctr: state.ctr.counter,
+        storedResults: state.result.results
     };
 }
 
@@ -103,12 +104,19 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({ type: "INCREMENT" }),
-        onDecrementCounter: () => dispatch({ type: "DECREMENT" }),
-        onAddCounter: () => dispatch({ type: "ADD", val: 5 }),
-        onSubstractCounter: () => dispatch({ type: "SUBTRACT", val: 5 }),
-        onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
-        onDeleteResult: (id) => dispatch({ type: 'DELETE_RESULT', resultElId: id})
+      // here we are passing action as javascript object inside the dispatch function
+        onIncrementCounter: () => dispatch({ type: actionTypes.INCREMENT }),
+        onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT}),
+        onAddCounter: () => dispatch({ type: actionTypes.ADD, val: 5 }),
+        onSubstractCounter: () => dispatch({ type: actionTypes.SUBTRACT, val: 5 }),
+        /*
+        * now after using reducer combination, we no longer have access to the counter state inside
+        * the results reducer. Results reducer only has access to the results, not the counter
+        * So we need to pass the counter state as an action payload to it
+        * so we need to pass the state to our reducer as payload
+        */
+        onStoreResult: (result) => dispatch({ type: actionTypes.STORE_RESULT, result: result}),
+        onDeleteResult: (id) => dispatch({ type: actionTypes.DELETE_RESULT, resultElId: id})
     };
 }
 export default connect(
