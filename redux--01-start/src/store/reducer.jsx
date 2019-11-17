@@ -14,6 +14,16 @@ const initialState = {
 * not passed or undefined.
 * usually when we dispatch an action, we check for the type and
 * then decide what action to take
+*
+* Usually if I recall from colt's videos, when handling state, we 
+* usually don't do direct update/delete on a state. Most of the time
+* we create a copy of the existing state, change the required property
+* in that object containing existing state, and then make that object 
+* the new state, or equal the state to that new object
+* this is what is called chaning state immutubly
+*
+* When we do return/pass a new object, it automatically updates the
+* central store
 */
 
 const reducer = (state = initialState, action) => {
@@ -63,6 +73,14 @@ const reducer = (state = initialState, action) => {
                 * creates new object and then return it
                 */
                 results: state.results.concat({id:new Date(), value: state.counter})
+            }
+        case 'DELETE_RESULT':
+            // read this
+            // https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8303068#questions
+            const updatedArray = state.results.filter(result => result.id !== action.resultElId)
+            return{
+                ...state,
+                results: updatedArray
             }
     }
     // on default, it won't return the initial state, but the current state

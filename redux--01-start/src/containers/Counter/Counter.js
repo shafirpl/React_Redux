@@ -54,8 +54,10 @@ class Counter extends Component {
               {this.props.storedResults.map(strResult => (
                 <li
                   className="list-group-item"
-                  key = {strResult.id}
-                  onClick={this.props.onDeleteResult}
+                  key={strResult.id}
+                  // https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8211868#questions
+                  // watch from 7:16
+                  onClick={() => this.props.onDeleteResult(strResult.id)}
                 >
                   {strResult.value}
                 </li>
@@ -77,6 +79,9 @@ class Counter extends Component {
 * the state argument here is the application state, we receive the whole application
 * state but then using .property_name only retrieves slices of state that is relevant to this
 * component
+*
+* the props method will have access to this. For example, if 
+* i want to access the storedResults, I would do props.storedResults
 */
 
 const mapStateToProps = state => {
@@ -103,7 +108,7 @@ const mapDispatchToProps = dispatch => {
         onAddCounter: () => dispatch({ type: "ADD", val: 5 }),
         onSubstractCounter: () => dispatch({ type: "SUBTRACT", val: 5 }),
         onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
-        onDeleteResult: () => dispatch({ type: 'DELETE_RESULT' })
+        onDeleteResult: (id) => dispatch({ type: 'DELETE_RESULT', resultElId: id})
     };
 }
 export default connect(
