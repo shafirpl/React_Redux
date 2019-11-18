@@ -6,7 +6,7 @@ class addPerson extends Component {
 
     state = {
         name: '',
-        age: null
+        age: ''
     }
     namechangedHandler = (event) => {
         this.setState({name: event.target.value});
