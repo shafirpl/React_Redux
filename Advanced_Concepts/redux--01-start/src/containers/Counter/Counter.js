@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {increment} from '../../store/actions/actions.jsx';
 import './Counter.css';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import * as actionTypes from '../../store/actions.jsx';
+// import * as actionTypes from '../../store/actions/actions.jsx/index.js';
 class Counter extends Component {
     state = {
         counter: 0
@@ -105,7 +106,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
       // here we are passing action as javascript object inside the dispatch function
-        onIncrementCounter: () => dispatch({ type: actionTypes.INCREMENT }),
+        onIncrementCounter: () => dispatch(increment()),
         onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT}),
         onAddCounter: () => dispatch({ type: actionTypes.ADD, val: 5 }),
         onSubstractCounter: () => dispatch({ type: actionTypes.SUBTRACT, val: 5 }),
