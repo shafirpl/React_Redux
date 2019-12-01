@@ -11,6 +11,8 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import counterReducer from './store/reducers/counter.jsx';
 import resultReducer from "./store/reducers/results.jsx";
+import ReduxThunk from 'redux-thunk';
+
 
 // dummy middleware
 const logger = (store) => {
@@ -40,8 +42,14 @@ const rootReducer = combineReducers({
 * We need to import it from redux
 * then we need to wrap the middleware with the compose thing
 */
+
+/*
+* Since redux thunk is a middle ware, we add it to composeEnhancers
+*/
+
+// to connect to redux dev tools we need this
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger,ReduxThunk)));
 
 ReactDOM.render(<Provider store = {store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
