@@ -1,4 +1,4 @@
-import * as actionTypes from "../../store/actions/actions.jsx";
+import * as actionTypes from "../actions/actionTypes.jsx";
 // creating the initial state
 const initialState = {
   counter: 0,
