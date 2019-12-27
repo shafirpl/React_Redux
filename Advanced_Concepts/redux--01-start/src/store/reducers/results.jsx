@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes.jsx";
+import { updateObject } from '../utility.jsx';
 // creating the initial state
 const initialState = {
   results: []
@@ -48,18 +49,20 @@ const reducer = (state = initialState, action) => {
         * to the counter. So in order to have access to counter, we need to get it as a payload. Since counter.js file
         * has access to global state, we pass it from there the counter state to it as payload
         */
-        results: state.results.concat({ id: new Date(), value: action.result })
+        results: state.results.concat({ id: new Date(), value: action.result * 2 })
       };
     case actionTypes.DELETE_RESULT:
       // read this
       // https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8303068#questions
+      console.log("Result is:"+state.results);
       const updatedArray = state.results.filter(
-        result => result.id !== action.resultElId
+        result => result.id !== action.resElId
       );
-      return {
-        ...state,
-        results: updatedArray
-      };
+      return updateObject(state, { results: updatedArray})
+      // return {
+      //   ...state,
+      //   results: updatedArray
+      // };
   }
   // on default, it won't return the initial state, but the current state
   // every time the reducer is invoked, it gets the current state

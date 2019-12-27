@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes.jsx";
+import {updateObject} from '../utility.jsx'
 // creating the initial state
 const initialState = {
   counter: 0,
@@ -39,25 +40,25 @@ const reducer = (state = initialState, action) => {
        * This is the preferred way to return a new state in redux
        * As it ensures an immutable way to update the state
        */
-      return {
-        ...state,
-        counter: state.counter + 1
-      };
+      // return {
+      //   ...state,
+      //   counter: state.counter + 1
+      // };
+      return updateObject(state, {counter: state.counter + 1});
     case actionTypes.DECREMENT:
-      return {
-        ...state,
-        counter: state.counter - 1
-      };
+      return updateObject(state, {counter: state.counter - 1});
+      // return {
+      //   ...state,
+      //   counter: state.counter - 1
+      // };
     case actionTypes.ADD:
-      return {
-        ...state,
-        counter: state.counter + action.val
-      };
+      // return {
+      //   ...state,
+      //   counter: state.counter + action.val
+      // };
+      return updateObject(state, {counter: state.counter + action.val});
     case actionTypes.SUBTRACT:
-      return {
-        ...state,
-        counter: state.counter - action.val
-      };
+      return updateObject(state, {counter: state.counter - action.val});
   }
   // on default, it won't return the initial state, but the current state
   // every time the reducer is invoked, it gets the current state
