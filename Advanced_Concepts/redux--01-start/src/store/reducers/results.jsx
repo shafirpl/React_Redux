@@ -4,7 +4,25 @@ import { updateObject } from '../utility.jsx';
 const initialState = {
   results: []
 };
+/*
+* The reason we used a function, is just to make the switch case statement more leaner, we
+* could technically put all the code in the case statement, but in order to keep the case statement fewer lines,
+* we used this helper function to outsource the code
+*/
+const deleteResult = (state = initialState, action) => {
+      // read this
+      // https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8303068#questions
+      console.log("Result is:"+state.results);
+      const updatedArray = state.results.filter(
+        result => result.id !== action.resElId
+      );
+      return updateObject(state, { results: updatedArray})
+      // return {
+      //   ...state,
+      //   results: updatedArray
+      // };
 
+};
 // reducer
 /*
  * The reducer is a stricly a function, which receives two
@@ -52,17 +70,8 @@ const reducer = (state = initialState, action) => {
         results: state.results.concat({ id: new Date(), value: action.result * 2 })
       };
     case actionTypes.DELETE_RESULT:
-      // read this
-      // https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8303068#questions
-      console.log("Result is:"+state.results);
-      const updatedArray = state.results.filter(
-        result => result.id !== action.resElId
-      );
-      return updateObject(state, { results: updatedArray})
-      // return {
-      //   ...state,
-      //   results: updatedArray
-      // };
+      return deleteResult(state,action);
+
   }
   // on default, it won't return the initial state, but the current state
   // every time the reducer is invoked, it gets the current state
